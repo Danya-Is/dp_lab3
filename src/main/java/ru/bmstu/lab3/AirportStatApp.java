@@ -8,6 +8,6 @@ public class AirportStatApp {
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName("AirportStatApp");
         JavaSparkContext sc = new JavaSparkContext(conf);
-        sc.textFile();
+        sc.textFile("FLIGHTS.scv");
     }
 }
