@@ -28,9 +28,8 @@ public class AirportStatApp {
 
         SparkConf conf = new SparkConf().setAppName("AirportStatApp");
         JavaSparkContext sc = new JavaSparkContext(conf);
-        Map<String, String> airports = sc.hadoopFile("AIRPORTS.csv", TextInputFormat.class, LongWritable.class, Text.class)
-                .filter(data -> !data._2.toString().contains("Code"))
-                .map(data -> data._2.toString())
+        Map<String, String> airports = sc.textFile("AIRPORTS.csv")
+                .filter(row -> !row.contains("Code"))
                 .map(TableRow::parseAirportTable)
                 .mapToPair(airportRows -> new Tuple2<>(airportRows.get(0), airportRows.get(1)))
                 .collectAsMap();
@@ -43,7 +42,8 @@ public class AirportStatApp {
 
         final Broadcast<Map<String, String>> airportsBroadcasted = sc.broadcast(airports);
 
-        routes.map(pair -> RouteInfo.join(pair, airportsBroadcasted.value()));
+        JavaRDD<String> res = routes.map(pair -> RouteInfo.join(pair, airportsBroadcasted.value()));
+        res.saveAsTextFile(args[0]); 
 
     }
 }
