@@ -16,6 +16,6 @@ public class RouteInfo implements Serializable {
     }
 
     public static RouteInfo addFlight(float delay, int isCancelled) {
-        return
+        return new RouteInfo(delay > this.)
     }
 }
