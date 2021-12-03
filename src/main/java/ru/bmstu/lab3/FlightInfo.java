@@ -4,4 +4,5 @@ import java.io.Serializable;
 
 public class FlightInfo implements Serializable {
 
+    public FlightInfo(String maxDelay)
 }
