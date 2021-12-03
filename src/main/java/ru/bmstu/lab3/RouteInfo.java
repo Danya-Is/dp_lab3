@@ -37,6 +37,9 @@ public class RouteInfo implements Serializable {
     static public String join(Tuple2<Tuple2<String, String>, RouteInfo> pair, Map<String, String> airports) {
         int delayedPercent = Math.round(((float) pair._2.delayedAmount / pair._2.flightAmount) * 100);
         int cancelledPercent = Math.round(((float) pair._2.canceledAmount / pair._2.flightAmount) * 100);
-        return "Для маршрута из аэропорта " + pair._1
+        String departureAirportID = pair._1._1;
+        String destinationAirportID = pair._1._2;
+        return "Для маршрута из аэропорта " + departureAirportID + " в аэропорт " + destinationAirportID +
+                "\nмаксимальное время задержки - " + pair._2.maxDelay
     }
 }
