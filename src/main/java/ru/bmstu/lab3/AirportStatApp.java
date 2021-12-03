@@ -5,6 +5,7 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.broadcast.Broadcast;
 import ru.bmstu.lab3.AppendRouteInfoFunction;
 import ru.bmstu.lab3.CreateRouteInfoFunction;
 import ru.bmstu.lab3.MergeRouteInfoFunction;
@@ -37,7 +38,8 @@ public class AirportStatApp {
                 .mapToPair(flightRows -> new Tuple2<>(new Tuple2<>(flightRows[DEPATURE_AIRPORT_POS], flightRows[DESTINATION_AIRPORT_POS]), flightRows[AIRPORT_DELAY_POS]))
                 .combineByKey(new CreateRouteInfoFunction(), new AppendRouteInfoFunction(), new MergeRouteInfoFunction());
 
-        
+
+        final Broadcast<Map<String, String>> airportsBroadcasted = sc.broadcast(airports);
 
     }
 }
