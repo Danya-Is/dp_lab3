@@ -15,11 +15,11 @@ public class RouteInfo implements Serializable {
         this.canceledAmount = canceledAmount;
     }
 
-    public RouteInfo addFlight(float delay, int isCancelled) {
-        maxDelay = delay > maxDelay ? maxDelay = delay : maxDelay;
+    public RouteInfo addFlight(RouteInfo flight) {
+        maxDelay = flight.maxDelay > maxDelay ? maxDelay = flight.maxDelay : maxDelay;
         flightAmount++;
-        delayedAmount += delay > 0 ? delay : 0;
-        canceledAmount += isCancelled;
+        delayedAmount += flight.maxDelay > 0 ? flight.maxDelay : 0;
+        canceledAmount += flight.canceledAmount;
         return this;
     }
 
