@@ -1,6 +1,10 @@
 package ru.bmstu.lab3;
 
+import org.apache.spark.api.java.JavaPairRDD;
+import scala.Tuple2;
+
 import java.io.Serializable;
+import java.util.Map;
 
 public class RouteInfo implements Serializable {
     private float maxDelay;
@@ -28,5 +32,9 @@ public class RouteInfo implements Serializable {
         float maxDelay = isCancelled == 1 ? 0 : Float.parseFloat(delay);
         int isDelayed = maxDelay > 0 ? 1 : 0;
         return new RouteInfo(maxDelay, 1, isDelayed, isCancelled);
+    }
+
+    static public void join(JavaPairRDD<Tuple2<String, String>, RouteInfo> pair, Map<String, String> airports) {
+
     }
 }
