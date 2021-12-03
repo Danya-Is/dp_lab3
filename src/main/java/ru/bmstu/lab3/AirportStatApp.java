@@ -24,15 +24,9 @@ public class AirportStatApp {
         SparkConf conf = new SparkConf().setAppName("AirportStatApp");
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> flights = sc.textFile("FLIGHTS.scv").filter(row -> !row.contains("ARR_DELAY"));
-        flights
+        JavaRDDflights
                 .map(flightRow -> flightRow.split(FLIGHTS_DELIMITER))
-                .mapToPair(flightRow -> {
-                    float delayTime = flightRow[AIRPORT_DELAY_POS] == null ? 0 : Float.parseFloat(flightRow[AIRPORT_DELAY_POS]);
-                    int isDelayed = delayTime > 0 ? 1 : 0;
-                    int isCancelled = Float.parseFloat(flightRow[IS_CANCELED_POS]) == 0 ? 0: 1;
-                    RouteInfo info = new RouteInfo(delayTime, 1, isDelayed, isCancelled);
-                    return new Tuple2<>(new Tuple2(flightRow[DEPATURE_AIRPORT_POS], flightRow[DESTINATION_AIRPORT_POS]), info);
-                })
+                .mapToPair(flightRow -> new Tuple2<>(new Tuple2<>(flightRow[DEPATURE_AIRPORT_POS], flightRow[DESTINATION_AIRPORT_POS]), flightRow[AIRPORT_DELAY_POS]))
                 .combineByKey(new CreateRouteInfoFunction(), new AppendRouteInfoFunction(), new MergeRouteInfoFunction());
 
     }
