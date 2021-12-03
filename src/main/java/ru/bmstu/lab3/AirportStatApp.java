@@ -25,8 +25,9 @@ public class AirportStatApp {
 
         SparkConf conf = new SparkConf().setAppName("AirportStatApp");
         JavaSparkContext sc = new JavaSparkContext(conf);
-        Map<String, String> airports = sc.textFile("AIRPORTS.csv")
-                .filter(row -> !row.contains("Code"))
+        Map<String, String> airports = sc.hadoopFile("AIRPORTS.csv")
+                .filter(data -> !data._2.toString().contains("Code"))
+                .map(data -> data._2.toString())
                 .map(TableRow::parseAirportTable)
                 .mapToPair(airportRows -> new Tuple2<>(airportRows.get(0), airportRows.get(1)))
                 .collectAsMap();
