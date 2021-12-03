@@ -1,4 +1,7 @@
 package ru.bmstu.lab3;
 
-public class FlightInfo {
+import java.io.Serializable;
+
+public class FlightInfo implements Serializable {
+
 }
