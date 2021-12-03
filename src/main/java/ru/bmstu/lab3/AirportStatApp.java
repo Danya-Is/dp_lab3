@@ -37,6 +37,7 @@ public class AirportStatApp {
                 .mapToPair(flightRows -> new Tuple2<>(new Tuple2<>(flightRows[DEPATURE_AIRPORT_POS], flightRows[DESTINATION_AIRPORT_POS]), flightRows[AIRPORT_DELAY_POS]))
                 .combineByKey(new CreateRouteInfoFunction(), new AppendRouteInfoFunction(), new MergeRouteInfoFunction());
 
+        
 
     }
 }
