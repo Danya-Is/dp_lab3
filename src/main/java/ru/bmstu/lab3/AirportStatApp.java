@@ -14,12 +14,14 @@ public class AirportStatApp {
     public static final int AIRPORT_DELAY_POS = 18;
     public static final int IS_CANCELED_POS = 19;
 
+    public static final String FLIGHTS_DELIMITER = ",";
+
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName("AirportStatApp");
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> flights = sc.textFile("FLIGHTS.scv").filter(row -> !row.contains("ARR_DELAY"));
         flights
-                .map(flightRow -> flightRow.split(","))
+                .map(flightRow -> flightRow.split(FLIGHTS_DELIMITER))
                 .mapToPair(flightRow -> {
                     float delayTime = flightRow[AIRPORT_DELAY_POS] == null ? 0 : Float.parseFloat(flightRow[AIRPORT_DELAY_POS]);
                     int isDelayed = delayTime > 0 ? 1 : 0;
