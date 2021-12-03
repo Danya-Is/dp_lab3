@@ -3,8 +3,7 @@ package ru.bmstu.lab3;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.InputFormat;
-import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapred.TextInputFormat;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -30,7 +29,7 @@ public class AirportStatApp {
         SparkConf conf = new SparkConf().setAppName("AirportStatApp");
         JavaSparkContext sc = new JavaSparkContext(conf);
         Map<String, String> airports = sc.hadoopFile("AIRPORTS.csv", TextInputFormat.class, LongWritable.class, Text.class)
-                .filter(data -> data._1)
+                .filter(data -> !data._2.toString().contains("Code"))
                 .map(data -> data._2.toString())
                 .map(TableRow::parseAirportTable)
                 .mapToPair(airportRows -> new Tuple2<>(airportRows.get(0), airportRows.get(1)))
