@@ -25,12 +25,12 @@ public class AirportStatApp {
 
         SparkConf conf = new SparkConf().setAppName("AirportStatApp");
         JavaSparkContext sc = new JavaSparkContext(conf);
-        Map<String, String> airports = sc.textFile("AIRPORTS.scv")
+        Map<String, String> airports = sc.textFile("AIRPORTS.csv")
                 .filter(row -> !row.contains("Code"))
                 .map(TableRow::parseAirportTable)
                 .mapToPair(airportRows -> new Tuple2<>(airportRows.get(0), airportRows.get(1)))
                 .collectAsMap();
-        JavaPairRDD<Tuple2<String, String>, RouteInfo> routes = sc.textFile("FLIGHTS.scv")
+        JavaPairRDD<Tuple2<String, String>, RouteInfo> routes = sc.textFile("FLIGHTS.csv")
                 .filter(row -> !row.contains("ARR_DELAY"))
                 .map(TableRow::parseFlightTable)
                 .mapToPair(flightRows -> new Tuple2<>(new Tuple2<>(flightRows.get(DEPARTURE_AIRPORT_POS), flightRows.get(DESTINATION_AIRPORT_POS)), flightRows.get(AIRPORT_DELAY_POS)))
