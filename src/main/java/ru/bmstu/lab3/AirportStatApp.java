@@ -1,4 +1,4 @@
-package main.java.ru.bmstu.lab3;
+package ru.bmstu.lab3;
 
 
 import org.apache.spark.SparkConf;
