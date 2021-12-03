@@ -4,6 +4,7 @@ package main.java.ru.bmstu.lab3;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import scala.Tuple2;
 
 public class AirportStatApp {
 
@@ -16,7 +17,7 @@ public class AirportStatApp {
         SparkConf conf = new SparkConf().setAppName("AirportStatApp");
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> flights = sc.textFile("FLIGHTS.scv").filter(row -> !row.contains("ARR_DELAY"));
-        flights.mapToPair(flightRow -> )
+        flights.mapToPair(flightRow -> new Tuple2<>())
 
     }
 }
