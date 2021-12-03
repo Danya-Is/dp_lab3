@@ -21,7 +21,8 @@ public class AirportStatApp {
         flights
                 .map(flightRow -> flightRow.split(","))
                 .mapToPair(flightRow -> {
-                    FlightInfo info = new FlightInfo()
+                    delayTime = flightRow[AIRPORT_DELAY_POS];
+                    FlightInfo info = new FlightInfo( == null ? 0 : Float.parseFloat())
                     new Tuple2<>(new Tuple2(flightRow[DEPATURE_AIRPORT_POS], flightRow[DESTINATION_AIRPORT_POS]), flightRow[AIRPORT_DELAY_POS])
                 });
 
