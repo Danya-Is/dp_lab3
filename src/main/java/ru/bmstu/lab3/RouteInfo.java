@@ -34,7 +34,7 @@ public class RouteInfo implements Serializable {
         return new RouteInfo(maxDelay, 1, isDelayed, isCancelled);
     }
 
-    static public void join(JavaPairRDD<Tuple2<String, String>, RouteInfo> pair, Map<String, String> airports) {
+    static public void join(Tuple2<Tuple2<String, String>, RouteInfo> pair, Map<String, String> airports) {
 
     }
 }

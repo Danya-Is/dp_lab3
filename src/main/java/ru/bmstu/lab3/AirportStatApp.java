@@ -41,7 +41,7 @@ public class AirportStatApp {
 
         final Broadcast<Map<String, String>> airportsBroadcasted = sc.broadcast(airports);
 
-        routes.map(pair -> RouteInfo.join(pair, airportsBroadcasted.value()))
+        routes.map(pair -> RouteInfo.join(pair, airportsBroadcasted.value()));
 
     }
 }
