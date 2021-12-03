@@ -1,2 +1,4 @@
-package ru.bmstu.lab3;public class FlightInfo {
+package ru.bmstu.lab3;
+
+public class FlightInfo {
 }
