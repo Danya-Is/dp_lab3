@@ -28,7 +28,8 @@ public class AirportStatApp {
                     int isCancelled = Float.parseFloat(flightRow[IS_CANCELED_POS]) == 0 ? 0: 1;
                     FlightInfo info = new FlightInfo(delayTime, 1, isDelayed, isCancelled);
                     return new Tuple2<>(new Tuple2(flightRow[DEPATURE_AIRPORT_POS], flightRow[DESTINATION_AIRPORT_POS]), info);
-                });
+                })
+                .combineByKey();
 
     }
 }
