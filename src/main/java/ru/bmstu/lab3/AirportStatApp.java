@@ -11,6 +11,8 @@ import ru.bmstu.lab3.MergeRouteInfoFunction;
 import ru.bmstu.lab3.RouteInfo;
 import scala.Tuple2;
 
+import java.util.Map;
+
 public class AirportStatApp {
 
     public static final int DEPATURE_AIRPORT_POS = 11;
@@ -25,16 +27,15 @@ public class AirportStatApp {
         SparkConf conf = new SparkConf().setAppName("AirportStatApp");
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> flights = sc.textFile("FLIGHTS.scv").filter(row -> !row.contains("ARR_DELAY"));
-        JavaPairRDD<Object, Object> airports = sc.textFile("AIRPORTS.scv")
+        Map<String, String> airports = sc.textFile("AIRPORTS.scv")
                 .filter(row -> !row.contains("Code"))
                 .map(airportRow -> airportRow.split(AIRPORTS_DELIMITER))
-                .mapToPair(airportRows -> new Tuple2<>(airportRows[0], airportRows[1]));
+                .mapToPair(airportRows -> new Tuple2<>(airportRows[0], airportRows[1]))
+                .collectAsMap();
         JavaPairRDD<Tuple2<String, String>, RouteInfo> routes = flights
                 .map(flightRow -> flightRow.split(FLIGHTS_DELIMITER))
                 .mapToPair(flightRows -> new Tuple2<>(new Tuple2<>(flightRows[DEPATURE_AIRPORT_POS], flightRows[DESTINATION_AIRPORT_POS]), flightRows[AIRPORT_DELAY_POS]))
                 .combineByKey(new CreateRouteInfoFunction(), new AppendRouteInfoFunction(), new MergeRouteInfoFunction());
-
-        airports.collectAsMap();
 
 
     }
