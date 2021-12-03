@@ -18,7 +18,7 @@ public class AirportStatApp {
 
     public static final int DEPARTURE_AIRPORT_POS = 11;
     public static final int DESTINATION_AIRPORT_POS = 14;
-    public static final int AIRPORT_DELAY_POS = 18;
+    public static final int AIRPORT_DELAY_POS = 17;
     public static final int IS_CANCELED_POS = 19;
 
     public static final String FLIGHTS_DELIMITER = ",";

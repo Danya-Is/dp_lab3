@@ -40,6 +40,6 @@ public class RouteInfo implements Serializable {
         String departureAirportID = pair._1._1;
         String destinationAirportID = pair._1._2;
         return "Для маршрута из аэропорта " + departureAirportID + " в аэропорт " + destinationAirportID +
-                "\nмаксимальное время задержки - " + pair._2.maxDelay
+                "\nмаксимальное время задержки - " + pair._2.maxDelay + " минут\n";
     }
 }
