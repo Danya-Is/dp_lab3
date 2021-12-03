@@ -6,6 +6,7 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import ru.bmstu.lab3.AppendRouteInfoFunction;
 import ru.bmstu.lab3.CreateRouteInfoFunction;
+import ru.bmstu.lab3.MergeRouteInfoFunction;
 import ru.bmstu.lab3.RouteInfo;
 import scala.Tuple2;
 
@@ -32,7 +33,7 @@ public class AirportStatApp {
                     RouteInfo info = new RouteInfo(delayTime, 1, isDelayed, isCancelled);
                     return new Tuple2<>(new Tuple2(flightRow[DEPATURE_AIRPORT_POS], flightRow[DESTINATION_AIRPORT_POS]), info);
                 })
-                .combineByKey(new CreateRouteInfoFunction(), new AppendRouteInfoFunction(), );
+                .combineByKey(new CreateRouteInfoFunction(), new AppendRouteInfoFunction(), new MergeRouteInfoFunction());
 
     }
 }
