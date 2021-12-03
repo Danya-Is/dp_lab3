@@ -4,7 +4,7 @@ package main.java.ru.bmstu.lab3;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import ru.bmstu.lab3.CreateRouteInfo;
+import ru.bmstu.lab3.CreateRouteInfoFunction;
 import ru.bmstu.lab3.RouteInfo;
 import scala.Tuple2;
 
@@ -31,7 +31,7 @@ public class AirportStatApp {
                     RouteInfo info = new RouteInfo(delayTime, 1, isDelayed, isCancelled);
                     return new Tuple2<>(new Tuple2(flightRow[DEPATURE_AIRPORT_POS], flightRow[DESTINATION_AIRPORT_POS]), info);
                 })
-                .combineByKey(new CreateRouteInfo(), );
+                .combineByKey(new CreateRouteInfoFunction(), );
 
     }
 }

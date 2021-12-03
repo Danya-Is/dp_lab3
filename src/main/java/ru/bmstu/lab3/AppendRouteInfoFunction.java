@@ -1,2 +1,4 @@
-package ru.bmstu.lab3;public class AppendRouteInfoFunction {
+package ru.bmstu.lab3;
+
+public class AppendRouteInfoFunction {
 }
