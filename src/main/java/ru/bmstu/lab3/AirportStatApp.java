@@ -7,7 +7,9 @@ import org.apache.spark.api.java.JavaSparkContext;
 
 public class AirportStatApp {
 
-    public static final int 
+    public static final int DEPATURE_AIRPORT_POS = 11;
+    public static final int DESTINATION_AIRPORT_POS = 14;
+    public static final int AIRPORT_DELAY_POS = 18;
 
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName("AirportStatApp");
