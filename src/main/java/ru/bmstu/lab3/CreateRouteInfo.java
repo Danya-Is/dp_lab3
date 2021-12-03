@@ -6,6 +6,6 @@ public class CreateRouteInfo extends Function<String, RouteInfo> {
 
     @Override
     public RouteInfo call(String s) throws Exception {
-        return null;
+        return ;
     }
 }
