@@ -15,6 +15,7 @@ public class AirportStatApp {
     public static final int IS_CANCELED_POS = 19;
 
     public static final String FLIGHTS_DELIMITER = ",";
+    public static final String AIRPORTS_DELIMITER = "\",\"";
 
     public static void main(String[] args) {
         SparkConf conf = new SparkConf().setAppName("AirportStatApp");
