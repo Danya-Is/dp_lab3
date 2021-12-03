@@ -15,5 +15,7 @@ public class RouteInfo implements Serializable {
         this.canceledAmount = canceledAmount;
     }
 
-    public void addFlight()
+    public RouteInfo addFlight(float delay, int isCancelled) {
+        return
+    }
 }
