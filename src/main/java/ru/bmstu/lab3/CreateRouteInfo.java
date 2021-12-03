@@ -1,4 +1,6 @@
 package ru.bmstu.lab3;
 
-public class CreateRouteInfo extends Function{
+import org.apache.spark.api.java.function.Function;
+
+public class CreateRouteInfo extends Function<> {
 }
