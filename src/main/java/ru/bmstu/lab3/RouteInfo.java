@@ -29,7 +29,7 @@ public class RouteInfo implements Serializable {
 
     static public RouteInfo createRoute(String delay) {
         int isCancelled = delay.isEmpty() ? 1 : 0;
-        float maxDelay = isCancelled == 1 ? 0 : Float.parseFloat(delay);
+        float maxDelay = isCancelled == 1 || delay.charAt(0) == '-' ? 0 : Float.parseFloat(delay);
         int isDelayed = maxDelay > 0 ? 1 : 0;
         return new RouteInfo(maxDelay, 1, isDelayed, isCancelled);
     }
@@ -40,6 +40,8 @@ public class RouteInfo implements Serializable {
         String departureAirportID = pair._1._1;
         String destinationAirportID = pair._1._2;
         return "Для маршрута из аэропорта " + departureAirportID + " в аэропорт " + destinationAirportID +
-                "\nмаксимальное время задержки - " + pair._2.maxDelay + " минут\n";
+                "\nмаксимальное время задержки: " + pair._2.maxDelay + " минут\n" +
+                "процент задержек: " + delayedPercent + "\n" +
+                "процент отмененных рейсов: " + cancelledPercent;
     }
 }
