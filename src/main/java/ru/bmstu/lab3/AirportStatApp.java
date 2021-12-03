@@ -4,7 +4,7 @@ package main.java.ru.bmstu.lab3;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import ru.bmstu.lab3.FlightInfo;
+import ru.bmstu.lab3.RouteInfo;
 import scala.Tuple2;
 
 public class AirportStatApp {
@@ -26,7 +26,7 @@ public class AirportStatApp {
                     float delayTime = flightRow[AIRPORT_DELAY_POS] == null ? 0 : Float.parseFloat(flightRow[AIRPORT_DELAY_POS]);
                     int isDelayed = delayTime > 0 ? 1 : 0;
                     int isCancelled = Float.parseFloat(flightRow[IS_CANCELED_POS]) == 0 ? 0: 1;
-                    FlightInfo info = new FlightInfo(delayTime, 1, isDelayed, isCancelled);
+                    RouteInfo info = new RouteInfo(delayTime, 1, isDelayed, isCancelled);
                     return new Tuple2<>(new Tuple2(flightRow[DEPATURE_AIRPORT_POS], flightRow[DESTINATION_AIRPORT_POS]), info);
                 })
                 .combineByKey();
