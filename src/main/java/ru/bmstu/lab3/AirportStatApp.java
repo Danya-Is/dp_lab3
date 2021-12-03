@@ -17,9 +17,6 @@ public class AirportStatApp {
     public static final int AIRPORT_DELAY_POS = 17;
     public static final int IS_CANCELED_POS = 19;
 
-    public static final String FLIGHTS_DELIMITER = ",";
-    public static final String AIRPORTS_DELIMITER = "\",\"";
-
     public static void main(String[] args) {
         if (args.length != 1) {
             System.err.println("Input format : <output path>");
