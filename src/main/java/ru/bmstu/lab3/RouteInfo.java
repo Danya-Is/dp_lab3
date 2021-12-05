@@ -42,6 +42,6 @@ public class RouteInfo implements Serializable {
         return "Для маршрута из аэропорта " + airports.get(departureAirportID) + " в аэропорт " + airports.get(destinationAirportID) +
                 "\nмаксимальное время задержки: " + pair._2.maxDelay + " (минут/ы)\n" +
                 "процент задержек: " + delayedPercent + "%\n" +
-                "процент отмененных рейсов: " + cancelledPercent + "%";
+                "процент отмененных рейсов: " + cancelledPercent + "%\n";
     }
 }
