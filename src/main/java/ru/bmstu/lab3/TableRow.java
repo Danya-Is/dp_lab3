@@ -1,6 +1,7 @@
 package ru.bmstu.lab3;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class TableRow implements Serializable {
     private String[] data;
@@ -14,9 +15,14 @@ public class TableRow implements Serializable {
 
     public static TableRow parseAirportTable(String table) {
         String[] data = table.split(AIRPORTS_DELIMITER);
-        data[0].replaceAll("\"", "");
-        data[data.length - 1].replaceAll("\"", "");
+        data[0] = deleteQuotes(data[0]);
+        data[data.length - 1] = deleteQuotes(data[data.length - 1]);
         return new TableRow(data);
+    }
+
+    private static String deleteQuotes(String str) {
+        str = str.replaceAll("\"", "");
+        return str;
     }
 
     public static TableRow parseFlightTable(String table) {
@@ -24,7 +30,11 @@ public class TableRow implements Serializable {
         return new TableRow(data);
     }
 
-    public String get(int id) {
-        return data[id];
+    public String get(int id) throws Exception {
+        if (id > data.length)
+            throw new Exception(Arrays.toString(data));
+        else
+            return data[id];
+
     }
 }

@@ -22,7 +22,7 @@ public class RouteInfo implements Serializable {
     public RouteInfo addFlight(RouteInfo flight) {
         maxDelay = flight.maxDelay > maxDelay ? maxDelay = flight.maxDelay : maxDelay;
         flightAmount++;
-        delayedAmount += flight.maxDelay > 0 ? flight.maxDelay : 0;
+        delayedAmount += flight.maxDelay > 0 ? 1 : 0;
         canceledAmount += flight.canceledAmount;
         return this;
     }
@@ -39,9 +39,9 @@ public class RouteInfo implements Serializable {
         int cancelledPercent = Math.round(((float) pair._2.canceledAmount / pair._2.flightAmount) * 100);
         String departureAirportID = pair._1._1;
         String destinationAirportID = pair._1._2;
-        return "Для маршрута из аэропорта " + departureAirportID + " в аэропорт " + destinationAirportID +
-                "\nмаксимальное время задержки: " + pair._2.maxDelay + " минут\n" +
-                "процент задержек: " + delayedPercent + "\n" +
-                "процент отмененных рейсов: " + cancelledPercent;
+        return "Для маршрута из аэропорта " + airports.get(departureAirportID) + " в аэропорт " + airports.get(destinationAirportID) +
+                "\nмаксимальное время задержки: " + pair._2.maxDelay + " (минут/ы)\n" +
+                "процент задержек: " + delayedPercent + "%\n" +
+                "процент отмененных рейсов: " + cancelledPercent + "%";
     }
 }
